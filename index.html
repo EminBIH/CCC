@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calcolatore Consumo Carburante</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        select,
+        input[type="number"],
+        input[type="text"],
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .result {
+            font-size: 18px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Calcolatore Consumo Carburante</h1>
+        <label for="carChoice">Seleziona il veicolo:</label>
+        <select id="carChoice">
+            <option value="DS3 Crossback">DS3 Crossback</option>
+            <option value="Citroen DS3">Citroen DS3</option>
+        </select>
+        <label for="distance">Inserisci la distanza (km):</label>
+        <input type="number" id="distance" placeholder="Distanza in km">
+        <label for="fuelPrice">Prezzo del carburante (€/L):</label>
+        <input type="text" id="fuelPrice" placeholder="Prezzo del carburante">
+        <button onclick="calculate()">Calcola</button>
+        <button onclick="resetForm()">Reset</button> <!-- Pulsante Reset aggiunto -->
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculate() {
+            var carChoice = document.getElementById("carChoice").value;
+            var distance = parseFloat(document.getElementById("distance").value);
+            var fuelPrice = parseFloat(document.getElementById("fuelPrice").value);
+
+            var consumption;
+            if (carChoice === "DS3 Crossback") {
+                consumption = 16; // km/L
+            } else if (carChoice === "Citroen DS3") {
+                consumption = 20; // km/L
+            }
+
+            if (!isNaN(distance) && !isNaN(fuelPrice) && !isNaN(consumption)) {
+                var tripCost = (distance / consumption) * fuelPrice;
+                document.getElementById("result").innerHTML = "Costo del viaggio: " + tripCost.toFixed(2) + "€";
+            } else {
+                alert("Si prega di inserire valori validi per la distanza e il prezzo del carburante.");
+            }
+        }
+
+        function resetForm() {
+            document.getElementById("carChoice").selectedIndex = 0; // Reimposta la selezione del veicolo
+            document.getElementById("distance").value = ""; // Reimposta il campo della distanza
+            document.getElementById("fuelPrice").value = ""; // Reimposta il campo del prezzo del carburante
+            document.getElementById("result").innerHTML = ""; // Cancella il risultato
+        }
+    </script>
+</body>
+</html>
